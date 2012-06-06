@@ -1,0 +1,25 @@
+zimbra-lvm-backup
+=================
+
+Script to backup Zimbra on a dedicated LVM logical volumn.
+
+This INSTALL would tell you how to use the program.
+
+Pre-conditions:
+- The script initialized to use with Zimbra installed in default folder /opt/zimbra onto a dedicated LVM logical volumn 
+
+Step 1:
+Check out the script zimbra-lvm-backup.sh and put it into your convenience location, e.g. /opt/zimbra/libexec/
+
+Step 2:
+Set it executable mod: chmod +x /opt/zimbra/libexec/zimbra-lvm-backup.sh
+
+Step 3:
+Create/setup backup folder where backups stored. e.g. /home/backup/zimbra
+
+Step 4:
+Create a new cronjob for new scheduled backup.
+e.g. run "crontab -e"; then add a new line: "0 3 * * * /opt/zimbra/libexec/zimbra-lvm-backup.sh"
+to set it runs everyday at 3:00 AM.
+
+Please feel free to contact me at tatuan [at] gmail [dot] com for any helps.
