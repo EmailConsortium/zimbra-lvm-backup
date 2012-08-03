@@ -86,6 +86,8 @@ rmdir /tmp/$zimbra_backup_vol/
 # Remove the old backups
 echo "Removing the old backups..."
 find $backup_dir -mtime $number_of_backups_retain -delete
+# For sure
+find $backup_dir -mtime `expr $number_of_backups_retain + 1` -delete
 
 # Done!
 echo "Zimbra backed up to $backup_dir/zimbra-backup-$time.tar.gz"
