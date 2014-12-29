@@ -8,18 +8,19 @@ This INSTALL would tell you how to use the program.
 ## Pre-conditions:
 * The script initialized to use with Zimbra installed in default folder /opt/zimbra onto a dedicated LVM logical volumn 
 
-## For the script zimbra-lvm-rsync-backup.sh
+## For using the script zimbra-lvm-rsync-backup.sh
 * Step 1. Check out the script zimbra-lvm-rsync-backup.sh and put it into your convenience location, e.g. /opt/zimbra/libexec/
 
 * Step 2. Set it executable mod: chmod +x /opt/zimbra/libexec/zimbra-lvm-rsync-backup.sh
 
-* Step 3: Create/setup backup folder where incremental backups and full backup stored, e.g:
-- /opt/zimbra/backup/zimbra-incremental-backups for incrmental backups
-- /opt/zimbra/backup/zimbra-full-backup for full backup
+* Step 3: Create/setup backup folders where incremental backups and full backup stored, e.g:
+- /opt/zimbra/backup/zimbra-incremental-backups for the incrmental backups path
+- /backup/zimbra/zimbra-full-backup for the full backup path
+- Note: The 2 above dirs are located at 2 different loacations (you can change for your needs)
 
 * Step 4: Create a new cronjob for new scheduled backupi, e.g. run "crontab -e"; then add a new line: "0 3 * * * /opt/zimbra/libexec/zimbra-lvm-rsync-backup.sh" to set it runs everyday at 3:00 AM
 
-## For the script zimbra-lvm-backup.sh
+## For using the script zimbra-lvm-backup.sh
 * Step 1. Check out the script zimbra-lvm-backup.sh and put it into your convenience location, e.g. /opt/zimbra/libexec/
 
 * Step 2. Set it executable mod: chmod +x /opt/zimbra/libexec/zimbra-lvm-backup.sh
