@@ -53,41 +53,41 @@ number_of_backups_retain=NUMBER-OF-BACKUPS-RETAINED
 #########################################
 
 # Output date
-echo "Backup started at `date`." >> $backup_log
+echo "`date +"%Y-%m-%d %H:%M:%S"` Backup started at `date`." >> $backup_log
 
 # Create a logical volume called $zimbra_backup_vol
-echo "Creating a LV called $zimbra_backup_vol:" >> $backup_log
+echo "`date +"%Y-%m-%d %H:%M:%S"` Creating a LV called $zimbra_backup_vol:" >> $backup_log
 $lvcreate_cmd -L$zimbra_backup_volsize -s -n $zimbra_backup_vol /dev/$vol_group/$zimbra_vol
 
 # Create a mountpoint to mount the logical volume to
-echo "Creating a mountpoint for the LV..." >> $backup_log
+echo "`date +"%Y-%m-%d %H:%M:%S"` Creating a mountpoint for the LV..." >> $backup_log
 # WARNING: this is insecure!
 mkdir -p /tmp/$zimbra_backup_vol
 
 # Mount the logical volume to the mountpoint
-echo "Mounting the LV..." >> $backup_log
+echo "`date +"%Y-%m-%d %H:%M:%S"` Mounting the LV..." >> $backup_log
 # WARNING: use nouuid option if the filesystem is formatted as XFS
 mount -t $zimbra_vol_fs -o ro /dev/$vol_group/$zimbra_backup_vol /tmp/$zimbra_backup_vol/
 
 # Create the current backup
-echo "Creating the backup directory and backup..." >> $backup_log
+echo "`date +"%Y-%m-%d %H:%M:%S"` Creating the backup directory and backup..." >> $backup_log
 # using tar - default
 $tar_cmd zcvf $backup_dir/zimbra-backup-$time.tar.gz /tmp/$zimbra_backup_vol/zimbra/ 2&> /dev/null
 # or using fsarchiver - uncomment below command
 #$fsarchiver_cmd -j2 -o savefs $backup_dir/zimbra-backup-$time.fsa /dev/$vol_group/$zimbra_backup_vol
 
 # Unmount /tmp/$zimbra_backup_vol and remove the logical volume
-echo "Unmounting and removing the LV." >> $backup_log
+echo "`date +"%Y-%m-%d %H:%M:%S"` Unmounting and removing the LV." >> $backup_log
 umount /tmp/$zimbra_backup_vol/
 $lvremove_cmd --force /dev/$vol_group/$zimbra_backup_vol
 rmdir /tmp/$zimbra_backup_vol/
 
 # Remove the old backups
-echo "Removing the old backups..." >> $backup_log
+echo "`date +"%Y-%m-%d %H:%M:%S"` Removing the old backups..." >> $backup_log
 find $backup_dir -mtime $number_of_backups_retain -delete
 # For sure
 find $backup_dir -mtime `expr $number_of_backups_retain + 1` -delete
 
 # Done!
-echo "Zimbra backed up to $backup_dir/zimbra-backup-$time.tar.gz" >> $backup_log
-echo "Backup ended at `date`." >> $backup_log
+echo "`date +"%Y-%m-%d %H:%M:%S"` Zimbra backed up to $backup_dir/zimbra-backup-$time.tar.gz" >> $backup_log
+echo "`date +"%Y-%m-%d %H:%M:%S"` Backup ended at `date`." >> $backup_log
